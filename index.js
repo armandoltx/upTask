@@ -3,6 +3,9 @@ const express = require('express');
 // para importar las rutas
 const routes = require('./routes');
 
+// para leer os datos de un formulario necesitamos esta libreria
+const bodyParser = require('body-parser');
+
 //para leer las vistas y los archivos
 const path = require('path');
 
@@ -17,6 +20,9 @@ app.use(express.static('public'));
 app.set('view engine', 'pug');
 // Ageregar la carpeta de las vistas
 app.set('views', path.join(__dirname, './views'));
+
+// habilitar bodyParser para leer los datos del formulario
+app.use(bodyParser.urlencoded({extended: true}));
 
 // ruta para el home es un middleware
 // app.use('/', (req, res) => {
