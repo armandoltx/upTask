@@ -9,6 +9,16 @@ const bodyParser = require('body-parser');
 //para leer las vistas y los archivos
 const path = require('path');
 
+// Crear la conexion a la BD
+const db = require('./config/db');
+
+// Importar los modelos
+require('./models/Proyectos');
+
+//usa promesas asi q usamos promises
+db.sync()
+  .then(() => console.log('conectado al servidor'))
+  .catch(error => console.log(error));
 // crear una applicacion de express para el servidor
 const app = express();
 
