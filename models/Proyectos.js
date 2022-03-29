@@ -5,7 +5,7 @@ const db = require('../config/db');
 
 // importamos slug para la url
 const slug = require('slug');
-
+const shortid = require('shortid');
 // definimos el modelo
 // lo 1 q pasamos es el nombre de la tabla proyectos
 // lo 2 pasamos las columnas
@@ -21,7 +21,7 @@ const Proyectos = db.define('proyectos', {
     hooks: {
       beforeCreate(proyecto) {
         const url = slug(proyecto.nombre).toLowerCase();
-        proyecto.url = url;
+        proyecto.url = `${url}-${shortid.generate()}`
       }
     }
 });
