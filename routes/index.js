@@ -20,7 +20,7 @@ module.exports = function() {
   );
 
   // Listar proyecto
-  router.get('/proyectos/;url', proyectosController.proyectoPorUrl);
+  router.get('/proyectos/:url', proyectosController.proyectoPorUrl);
 
   return router;
 }
