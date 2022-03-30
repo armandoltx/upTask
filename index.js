@@ -9,6 +9,9 @@ const bodyParser = require('body-parser');
 //para leer las vistas y los archivos
 const path = require('path');
 
+// importar los helpers para usar las funciones
+const helpers = require('./helpers');
+
 // Crear la conexion a la BD
 const db = require('./config/db');
 
@@ -30,6 +33,12 @@ app.use(express.static('public'));
 app.set('view engine', 'pug');
 // Ageregar la carpeta de las vistas
 app.set('views', path.join(__dirname, './views'));
+
+// pasar vardump helper a la aplicacion
+app.use((req, res, next) => {
+  res.locals.vardump = helpers.vardump; // usamos res.locals para usar el helper en cualquier parte de la app
+  next(); // para q pase al siguiente midleware
+})
 
 // habilitar bodyParser para leer los datos del formulario
 app.use(bodyParser.urlencoded({extended: true}));

@@ -21,14 +21,13 @@ html(lang="en")
         .panel.lista-proyectos
           h2 Proyectos
           ul#proyectos.proyectos
-            li
-              a(href="#") Diseno de tienda virtual.
-            li
-              a(href="#") Diseno de tienda virtual.
-            li
-              a(href="#") Diseno de tienda virtual.
-
+            if(proyectos.length)
+              each proyecto in proyectos
+                li
+                  a(href="#")= proyecto.nombre
 
 
 
       block contenido
+
+      pre= vardump(proyectos)
