@@ -42,7 +42,7 @@ exports.nuevoProyecto = async (req, res) => {
   } else {
     // No hay errores
     // Instertar en la BD.
-    const proyecto = await Proyectos.create({ nombre });
+    await Proyectos.create({ nombre });
     res.redirect('/')
   }
 }
@@ -85,4 +85,36 @@ exports.formularioEditar = async (req, res) => {
     proyectos,
     proyecto
   })
+}
+
+exports.actualizarProyecto = async (req, res) => {
+  const proyectos = await Proyectos.findAll();
+  // Enviar a la consola lo que el usuario escriba
+  // console.log(req.body);
+
+  // Validar q tengamos algo en el input lo buscamos por el name
+  const { nombre } = req.body;
+
+  let errores =[];
+
+  if(!nombre) {
+    errores.push({'texto' : 'Agrega un nombre al Proyecto'})
+  }
+
+  // si hay errores
+  if(errores.length > 0) {
+    res.render('nuevoProyecto', {
+      nombrePagina : 'Nuevo Proyecto',
+      proyectos,
+      errores
+    })
+  } else {
+    // No hay errores
+    // Instertar en la BD.
+    await Proyectos.update(
+      { nombre: nombre },
+      { where: { id: req.params.id }}
+      );
+    res.redirect('/')
+  }
 }
