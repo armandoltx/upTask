@@ -1,3 +1,4 @@
+// Sequelize is a promise-based Node.js ORM
 const Sequelize = require('sequelize');
 
 const db = new Sequelize('uptasknode', 'root', 'rootroot', {

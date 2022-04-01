@@ -1,3 +1,4 @@
+// Sequelize is a promise-based Node.js ORM
 const Sequelize = require('sequelize');
 
 // importamos configuracion de la conexion de la BD
