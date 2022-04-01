@@ -126,5 +126,10 @@ exports.eliminarProyecto = async (req, res, next) => {
 
   const {urlProyecto} = req.query;
   const resultado = await Proyectos.destroy({ where: { url: urlProyecto }});
+
+  if(!resultado) { // si por algun casual no se pudo borrar, pq se perdio la conexion o lo q sea.
+    return next();
+  }
+
   res.status(200).send("Proyecto Eliminado Corectamente");
 }

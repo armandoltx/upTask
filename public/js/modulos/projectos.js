@@ -34,7 +34,15 @@ if(btnEliminar) {
             setTimeout(() => {
               window.location.href = '/'
             }, 3000)
-          });
+          })
+          .catch(() => {
+            // si por algun casual no se pudo borrar, pq se perdio la conexion o lo q sea.
+            Swal.fire({
+              type: 'error',
+              title: 'Hubo un error.',
+              text: 'No se pudo eliminar el proyecto.'
+            })
+          })
       }
     })
   });
