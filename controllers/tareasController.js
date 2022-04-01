@@ -14,7 +14,6 @@ exports.agregarTarea = async (req, res, next) =>{
   // console.log(proyecto);
 
   // === Leer el valor del input
-  console.log(req.body)
   // console.log(req.body); se trae el valor del name del input
   const {tarea} = req.body;
 

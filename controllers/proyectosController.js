@@ -1,5 +1,6 @@
 // Importar los modelos
 const Proyectos = require('../models/Proyectos');
+const Tareas = require('../models/Tareas');
 
 exports.proyectosHome = async (req, res) => {
   const proyectos = await Proyectos.findAll();
@@ -57,6 +58,22 @@ exports.proyectoPorUrl = async (req, res, next) => {
 
   const [proyectos, proyecto] = await Promise.all([proyectosPromise, proyectoPromise]);
 
+  // Consultar tareas del Proyecto Actual
+  // console.log(proyecto);
+  const tareas = await Tareas.findAll({
+    where: {
+      proyectoId: proyecto.id
+    },
+    // ventaja del ORM podemos incluir el objeto completo
+    // aqui incluimos el proyecto
+    // mira en la vista tarea ==> vardump(tareas)
+    // include: [
+    //   { model: Proyectos }
+    // ]
+  });
+
+  // console.log(tareas);
+
   if(!proyecto) return next();
 
   // console.log(proyecto);
@@ -65,7 +82,8 @@ exports.proyectoPorUrl = async (req, res, next) => {
   res.render('tareas', {
     nombrePagina: 'Tareas del Proyecto',
     proyectos,
-    proyecto
+    proyecto,
+    tareas
   })
 }
 
