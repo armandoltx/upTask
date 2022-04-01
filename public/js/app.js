@@ -1,1 +1,1 @@
-import tartes from './modulos/projectos';
+import proyectos from './modulos/projectos';
