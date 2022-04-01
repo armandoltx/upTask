@@ -1,1 +1,1 @@
-alert("hola");
+import tartes from './modulos/projectos';
