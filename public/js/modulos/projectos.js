@@ -9,7 +9,7 @@ if(btnEliminar) {
 
     Swal.fire({
       title: 'Deseas borrar este proyecto?',
-      text: "In proyecto eliminado no se puede recuperar",
+      text: "EL proyecto eliminado no se puede recuperar",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -22,22 +22,19 @@ if(btnEliminar) {
         // location.origin ==> 'http://localhost:3000' try in the console it gets you el origin.
         const url = `${location.origin}/proyectos/${urlProyecto}`;
         // console.log(`url => ${url}`);
-        axios.delete(url, { params: urlProyecto })
-          .then(function (respuesta) {
+        axios.delete(url, { params: {urlProyecto} })
+          .then(function (respuesta) { // respuesta viene de la linea 129 del controlador de proyectos.
             console.log(respuesta);
+            Swal.fire(
+              'Proyecto Eliminado!',
+              respuesta.data,
+              'success'
+            );
+            // Redireccionar al inicio
+            setTimeout(() => {
+              window.location.href = '/'
+            }, 3000)
           });
-
-        return;
-
-        Swal.fire(
-          'Proyecto Eliminado!',
-          'El proyecto ha sido eliminado.',
-          'success'
-        );
-        // Redireccionar al inicio
-        setTimeout(() => {
-          window.location.href = '/'
-        }, 3000)
       }
     })
   });
