@@ -11,13 +11,25 @@ block contenido
       .campo.enviar
         input.boton.nueva-tarea(type="SUBMIT", value="Agregar")
 
-    // TODO - Listado de Pendientes
+    .listado-pendientes
+      ul
+        // nombre q viene del controlador
+        if tareas.length
+          each tarea in tareas
+            li.tarea
+              p=tarea.tarea
+              .acciones
+                if tarea.estado
+                  i.far.fa-check-circle.completo
+                else
+                  i.far.fa-check-circle
+                i.fas.fa-trash
+        else
+          p No hay tareas en este proyecto.
 
     // Acciones
-
     //- pre= vardump(proyecto)
-    pre= vardump(tareas)
-
+    //- pre= vardump(tareas)
     .contenedor-acciones
       a(href=`/proyecto/editar/${proyecto.id}` class="boton" ) Editar Proyecto
       button#eliminar-proyecto(class="boton eliminar", type="button" data-proyecto-url=proyecto.url) Eliminar Proyecto
