@@ -2,7 +2,7 @@
 const Tareas = require('../models/Tareas');
 const Proyectos = require('../models/Proyectos');
 
-exports.agregarTarea = async (req, res, next) =>{
+exports.agregarTarea = async (req, res, next) => {
   // res.send("enviado");
 
   // === Obtenemos el proyecto actual
@@ -31,4 +31,8 @@ exports.agregarTarea = async (req, res, next) =>{
 
   res.redirect(`/proyectos/${req.params.url}`)
 
+}
+
+exports.cambiarEstadoTarea = async (req, res, next) => {
+  res.send('todo bien');
 }

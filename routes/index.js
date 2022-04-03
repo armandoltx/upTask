@@ -38,5 +38,8 @@ module.exports = function() {
 
   router.post('/proyectos/:url', tareasController.agregarTarea);
 
+  // Usamos patch en vez de put, pq solo queremos cambiar un campor del registro.
+  router.patch('/tareas/:id', tareasController.cambiarEstadoTarea);
+
   return router;
 }
