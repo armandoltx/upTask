@@ -34,5 +34,24 @@ exports.agregarTarea = async (req, res, next) => {
 }
 
 exports.cambiarEstadoTarea = async (req, res, next) => {
-  res.send('todo bien');
+  //res.send('todo bien');
+  // podemos usar query o params
+  //  console.log(req.params); // viene de la ruta
+  // console.log(req.query); // viene de axios pero no funciona
+
+  const { id } = req.params;
+  // console.log(id);
+  const tarea = await Tareas.findOne({ where: { id }});
+  // console.log(tarea);
+
+  // cambiar el estado
+  let estado = 0;
+  if(tarea.estado === estado) {
+    estado = 1;
+  }
+  tarea.estado = estado;
+
+  const resultado = await tarea.save();
+  if(!resultado) return next();
+  res.status(200).send("estado de la tarea Actualizado");
 }
