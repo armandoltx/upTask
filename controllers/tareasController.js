@@ -55,3 +55,21 @@ exports.cambiarEstadoTarea = async (req, res, next) => {
   if(!resultado) return next();
   res.status(200).send("estado de la tarea Actualizado");
 }
+
+exports.eliminarTarea = async (req, res, next) => {
+  // res.send('Eliminando tarea');
+  // podemos usar query o params
+  // console.log(req.params); // viene de la ruta
+  // console.log(req.query); // viene de axios
+
+  const {id} = req.params;
+  const tarea = await Tareas.findOne({ where: { id }});
+
+  const resultado = await Tareas.destroy({ where: { id }});
+
+  if(!resultado) { // si por algun casual no se pudo borrar, pq se perdio la conexion o lo q sea.
+    return next();
+  }
+
+  res.status(200).send(`${tarea.tarea} Eliminada Corectamente`);
+}

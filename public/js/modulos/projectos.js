@@ -17,14 +17,14 @@ if(btnEliminar) {
       confirmButtonText: 'Si, Borralo.',
       cancelButtonText: 'No, Cancelar.'
     }).then((result) => {
-      if (result.isConfirmed) {
-        // enviar peticion a axios
+      if (result.value) {
+        // enviar peticion a traves de axios
         // location.origin ==> 'http://localhost:3000' try in the console it gets you el origin.
         const url = `${location.origin}/proyectos/${urlProyecto}`;
         // console.log(`url => ${url}`);
         axios.delete(url, { params: {urlProyecto} })
           .then(function (respuesta) { // respuesta viene de la linea 129 del controlador de proyectos.
-            console.log(respuesta);
+            // console.log(respuesta);
             Swal.fire(
               'Proyecto Eliminado!',
               respuesta.data,

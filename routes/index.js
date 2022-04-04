@@ -41,5 +41,8 @@ module.exports = function() {
   // Usamos patch en vez de put, pq solo queremos cambiar un campor del registro.
   router.patch('/tareas/:id', tareasController.cambiarEstadoTarea);
 
+  // Eliminar Tarea
+  router.delete('/tareas/:id', tareasController.eliminarTarea);
+
   return router;
 }
