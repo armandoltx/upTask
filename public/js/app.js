@@ -1,4 +1,4 @@
-import proyectos from './modulos/projectos';
+import proyectos from './modulos/proyectos';
 import tareas from './modulos/tareas';
 import {actualizarAvance} from './funciones/avance';
 
