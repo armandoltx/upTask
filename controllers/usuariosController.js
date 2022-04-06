@@ -17,11 +17,21 @@ exports.crearCuenta = async (req, res, next) => {
   // console.log(req.body);
   const { email, password } = req.body;
 
-  // crear el usuario
-  await Usuarios.create({
-    email,
-    password
-  });
+  // usa try catch para acceder a los errores, por ejemplo aqui si hay un email duplicado arroja un error
+  // que podemos pasar a la vista
+  try {
+    // crear el usuario
+    await Usuarios.create({
+      email,
+      password
+    });
 
-  res.redirect('/iniciar-sesion')
+    res.redirect('/iniciar-sesion')
+  } catch (error) {
+    // console.log(error);
+    res.render('crearCuenta', {
+      rerror: error.errors,
+      nombrePagina: 'Crear Cuenta'
+    });
+  }
 }
