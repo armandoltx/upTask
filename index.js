@@ -12,6 +12,8 @@ const path = require('path');
 const expressValidator = require('express-validator');
 
 const flash = require('connect-flash');
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
 
 // importar los helpers para usar las funciones
 const helpers = require('./helpers');
@@ -31,17 +33,18 @@ db.sync()
 // crear una applicacion de express para el servidor
 const app = express();
 
+// Donde cargar los archivos estaticos
+app.use(express.static('public'));
+
+// Habilitar Pug
+app.set('view engine', 'pug');
+
 // habilitar bodyParser para leer los datos del formulario
 app.use(bodyParser.urlencoded({extended: true}));
 
 // Agregamos express validator a toda la aplicación
 // app.use(expressValidator());
 
-// Donde cargar los archivos estaticos
-app.use(express.static('public'));
-
-// Habilitar Pug
-app.set('view engine', 'pug');
 
 // Ageregar la carpeta de las vistas
 app.set('views', path.join(__dirname, './views'));
@@ -49,9 +52,19 @@ app.set('views', path.join(__dirname, './views'));
 // Agregar flash messages
 app.use(flash());
 
+app.use(cookieParser());
+
+// para manterner la sesion abierta entre todas las paginas cuando naveguemos por ellas.
+app.use(session({
+  secret: 'cualquiercosa',
+  resave: false,
+  saveUninitialized: false
+}));
+
 // pasar vardump helper a la aplicacion
 app.use((req, res, next) => {
   res.locals.vardump = helpers.vardump; // usamos res.locals para usar el helper en cualquier parte de la app
+  res.locals.mensajes = req.flash(); // pasando los mensajes de flash a cualquier parte de la app.
   next(); // para q pase al siguiente midleware
 })
 

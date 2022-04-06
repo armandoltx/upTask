@@ -29,8 +29,12 @@ exports.crearCuenta = async (req, res, next) => {
     res.redirect('/iniciar-sesion')
   } catch (error) {
     // console.log(error);
+
+    //en flash lo q pasamos es la categoria del error, en este caso error
+    req.flash('error', error.errors.map(error => error.message))
+
     res.render('crearCuenta', {
-      errores: error.errors,
+      mensajes: req.flash(),
       nombrePagina: 'Crear Cuenta'
     });
   }
