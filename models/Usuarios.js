@@ -4,6 +4,8 @@ const Sequelize = require('sequelize');
 // importamos configuracion de la conexion de la BD
 const db = require('../config/db');
 
+const bcrypt = require('bcrypt-nodejs');
+
 // imporatmos el modelo proyectos, pq estan relacionados.
 // cada usuario puede crear proyectos
 const Proyectos = require('./Proyectos');
@@ -23,6 +25,14 @@ const Usuarios = db.define('usuarios', {
   password: {
     type: Sequelize.STRING(60),
     allowNull: false
+  }
+}, {
+  hooks: {
+    beforeCreate(usuario) {
+      // console.log('creando nuevo usuario');
+      // console.log(usuario);
+      usuario.password = bcrypt.hashSync(usuario.password, bcrypt.genSaltSync(10));
+    }
   }
 });
 // Para crear la llave foranea y relacionar hambas tablas
