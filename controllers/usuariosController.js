@@ -9,7 +9,6 @@ exports.formCrearCuenta = (req, res) => {
   });
 }
 
-
 exports.crearCuenta = async (req, res, next) => {
   // res.send('Creaste la cuenta');
 
@@ -40,4 +39,11 @@ exports.crearCuenta = async (req, res, next) => {
       password
     });
   }
+}
+
+exports.formIniciarSesion = (req, res) => {
+  // res.send('funciona');
+  res.render('iniciarSesion', {
+    nombrePagina: 'Iniciar Sesion'
+  });
 }
