@@ -18,6 +18,7 @@ const db = require('./config/db');
 // Importar los modelos
 require('./models/Proyectos');
 require('./models/Tareas');
+require('./models/Usuarios');
 
 //usa promesas asi q usamos promises
 db.sync()
