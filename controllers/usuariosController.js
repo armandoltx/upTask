@@ -35,7 +35,9 @@ exports.crearCuenta = async (req, res, next) => {
 
     res.render('crearCuenta', {
       mensajes: req.flash(),
-      nombrePagina: 'Crear Cuenta'
+      nombrePagina: 'Crear Cuenta',
+      email,
+      password
     });
   }
 }
