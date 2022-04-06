@@ -30,7 +30,7 @@ exports.crearCuenta = async (req, res, next) => {
   } catch (error) {
     // console.log(error);
     res.render('crearCuenta', {
-      rerror: error.errors,
+      errores: error.errors,
       nombrePagina: 'Crear Cuenta'
     });
   }
