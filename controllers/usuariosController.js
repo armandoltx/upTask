@@ -43,7 +43,10 @@ exports.crearCuenta = async (req, res, next) => {
 
 exports.formIniciarSesion = (req, res) => {
   // res.send('funciona');
+  // console.log(res.locals.mensajes);
+  const { error } = res.locals.mensajes;
   res.render('iniciarSesion', {
-    nombrePagina: 'Iniciar Sesion'
+    nombrePagina: 'Iniciar Sesion',
+    error
   });
 }

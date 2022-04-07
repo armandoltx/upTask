@@ -57,11 +57,12 @@ const Usuarios = db.define('usuarios', {
 
 // prototype nos permite q todas las instancias de Usuarios pueden usar esa funcion;
 // basicamente crea funciones de instancia no de clases.
-Usuarios.prototype.verificarPassword = function(passsword) {
-  return bcrypt.compareSync(passsword, this.passsword); // this.password es el de la base de datos
+Usuarios.prototype.verificarPassword = function(password) {
+  return bcrypt.compareSync(password, this.password);
 }
+  // this.password es el de la base de datos
 
 // Para crear la llave foranea y relacionar hambas tablas
-Usuarios.hasMany(Proyectos);
+// Usuarios.hasMany(Proyectos);
 
 module.exports = Usuarios;
