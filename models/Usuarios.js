@@ -52,6 +52,15 @@ const Usuarios = db.define('usuarios', {
     }
   }
 });
+
+// Metodos personalizados
+
+// prototype nos permite q todas las instancias de Usuarios pueden usar esa funcion;
+// basicamente crea funciones de instancia no de clases.
+Usuarios.prototype.verificarPassword = function(passsword) {
+  return bcrypt.compareSync(passsword, this.passsword); // this.password es el de la base de datos
+}
+
 // Para crear la llave foranea y relacionar hambas tablas
 Usuarios.hasMany(Proyectos);
 
