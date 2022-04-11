@@ -63,6 +63,6 @@ Usuarios.prototype.verificarPassword = function(password) {
   // this.password es el de la base de datos
 
 // Para crear la llave foranea y relacionar hambas tablas
-// Usuarios.hasMany(Proyectos);
+Usuarios.hasMany(Proyectos);
 
 module.exports = Usuarios;
