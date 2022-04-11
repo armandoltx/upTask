@@ -67,8 +67,10 @@ app.use(passport.session());
 
 // pasar vardump helper a la aplicacion
 app.use((req, res, next) => {
+  // console.log(req.user);
   res.locals.vardump = helpers.vardump; // usamos res.locals para usar el helper en cualquier parte de la app
   res.locals.mensajes = req.flash(); // pasando los mensajes de flash a cualquier parte de la app.
+  res.locals.usuario = {...req.user} || null; // pasamos el usuario, una copia del usuario si existe
   next(); // para q pase al siguiente midleware
 })
 
