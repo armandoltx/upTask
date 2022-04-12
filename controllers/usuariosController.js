@@ -50,3 +50,11 @@ exports.formIniciarSesion = (req, res) => {
     error
   });
 }
+
+
+exports.formReestablecerPassword = (req, res)  => {
+  // res.send('funciona');
+  res.render('reestablecer', {
+    nombrePagina: ' Reestablecer Password',
+  })
+}
