@@ -93,6 +93,7 @@ module.exports = function() {
   // Reestablecer contraseña
 
   router.get('/reestablecer', usuariosController.formReestablecerPassword);
+  router.post('/reestablecer', authController.enviarToken);
 
   return router;
 }
