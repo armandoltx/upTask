@@ -1,5 +1,6 @@
 // AuthController.js
 const passport = require('passport');
+const crypto = require('crypto');
 const Usuarios = require('../models/Usuarios');
 
 // autenticar el usuario
@@ -42,10 +43,28 @@ exports.enviarToken = async (req, res) => {
 
   // Si no existe el usuario
   if(!usuario) {
-    req.flash('error', 'No existe el Usuario.')
-    res.render('reestablecer', {
-      nombrePagina: 'Reestablecer Password',
-      mensajes: req.flash()
-    });
+    req.flash('error', 'No existe el Usuario.');
+    res.redirect('/reestablecer');
   }
+
+  // Si el usuario existe
+  // const token = crypto.randomBytes(20).toString('hex');
+  // console.log(token);
+  // const expiracion = Date.now() + 3600000;
+  // console.log(expiracion);
+
+  usuario.token = crypto.randomBytes(20).toString('hex');
+  usuario.expiracion = Date.now() + 3600000;
+
+  // Guardar los datos en la BD.
+  await usuario.save();
+
+  // url de reset
+  const resetUrl = `http://${req.headers.host}/reestablecer/${usuario.token}`;
+  console.log(resetUrl);
+}
+
+exports.resetPassword = async (req, res) => {
+  // console.log(req.params.token);
+  res.json(req.params.token);
 }
