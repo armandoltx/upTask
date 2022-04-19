@@ -3,6 +3,7 @@ const passport = require('passport');
 const crypto = require('crypto');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op
+const bcrypt = require('bcrypt-nodejs');
 const Usuarios = require('../models/Usuarios');
 
 // autenticar el usuario
@@ -109,5 +110,20 @@ exports.actualizarPassword = async (req, res) => {
     req.flash('error', 'Usuario no Valido.');
     res.redirect('/reestablecer');
   }
+
+  // si el usuario existe guardamos el nuevo password, pero antes se hashea
+
+  // se pasa req.body.password pq password viene del formulario en resetPassword el name del input es password
+  usuario.password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
+
+  // ya estos no hacen falta
+  usuario.token = null;
+  usuario.expiracion = null;
+
+  // guardamos el nuevo password
+  await usuario.save();
+
+  req.flash('correcto', 'Tu password se ha modificado correctamente');
+  res.redirect('/iniciar-sesion');
 
 }
