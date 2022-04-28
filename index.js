@@ -83,3 +83,6 @@ app.use('/', routes());
 
 // puerto en el q corre la app
 app.listen(3000);
+
+// para los emails de recovery pass
+require('./handlers/email');
