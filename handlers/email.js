@@ -15,11 +15,18 @@ let transport = nodemailer.createTransport({
   },
 });
 
+// generar HTML
+const generarHTML = () => {
+  //__dirname detecta la url o la ubicacion donde estamos.
+  const html = pug.renderFile(`${__dirname}/../views/emails/reestablecer-password.pug`);
+  return juice(html);
+}
+
 // send mail with defined transport object
 let info = transport.sendMail({
   from: '"UpTask" <no-reply@example.com>', // sender address
   to: "correo@correo.com", // list of receivers
   subject: "Password Reset", // Subject line
   text: "Hello world?", // plain text body
-  html: "<b>Hello world?</b>", // html body
+  html: generarHTML()
 });
