@@ -16,6 +16,9 @@ const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const passport = require('./config/passport');
 
+// extraer valores de variables.env
+require('dotenv').config({ path: 'variables.env' })
+
 // importar los helpers para usar las funciones
 const helpers = require('./helpers');
 
@@ -81,8 +84,14 @@ app.use((req, res, next) => {
 // como van a haber muchas rutas creamos su propia carpeta usando router de express
 app.use('/', routes());
 
-// puerto en el q corre la app
-app.listen(3000);
+// puerto en el q corre la app y servidor
+const host = process.env.HOST || '0.0.0.0';
+const port = process.env.PORT || 3000;
+
+app.listen(port, host, () => {
+  console.log('El servidor esta funcionando');
+})
+
 
 // para los emails de recovery pass
 require('./handlers/email');
